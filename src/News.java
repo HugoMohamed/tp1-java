@@ -1,6 +1,4 @@
-import java.net.URL;
 import java.time.LocalDate;
-import java.util.Scanner;
 
 public class News implements Comparable<News>{
 

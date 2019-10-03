@@ -25,10 +25,10 @@ public class MesNews {
 					+ " 2 - Ouvrir\n"
 					+ " 3 - Sauvegarder\n"
 					+ " 4 - Insérer\n"
-					+ " 5 - Supprimer"
-					+ " 6 - Afficher"
-					+ " 7 - Rechercher"
-					+ " 8 - Quitter");
+					+ " 5 - Supprimer\n"
+					+ " 6 - Afficher\n"
+					+ " 7 - Rechercher\n"
+					+ " 8 - Quitter\n");
 
 			s = new Scanner(System.in);
 			if(s.hasNextInt())
@@ -80,18 +80,24 @@ public class MesNews {
 
 	// Affiche le contenu total de la base
 	private static void afficher() {
-		System.out.println("Afficher");
 		bdn.afficher();
 	}
 
 	// Supprime une actualité dans la base
 	public static void supprime() {
-		System.out.println("Supprime");
+		bdn.afficher();
+		Scanner s;
+		System.out.println("Entrez le numéro de la news à supprimer (0 pour annuler) :");
+		s = new Scanner(System.in);
+		if(s.hasNextInt()) {
+			if(s.nextInt() != 0)
+				bdn.supprimer(s.nextInt());
+		}
+		else System.out.println("Cette news n'existe pas");
 	}
 
 	// Insère une nouvelle actualité dans la base
 	public static void inserer() {
-		System.out.println("Inserer");
 		Scanner s;
 
 		System.out.println("Entrez un titre");
@@ -125,7 +131,6 @@ public class MesNews {
 
 	// Crée une nouvelle base d'actualité
 	public static void creer() {
-		System.out.println("Créer");
 		bdn.initialise();
 	}
 }
