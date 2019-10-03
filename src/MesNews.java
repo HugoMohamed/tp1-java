@@ -87,11 +87,13 @@ public class MesNews {
 	public static void supprime() {
 		bdn.afficher();
 		Scanner s;
+		int news;
 		System.out.println("Entrez le numéro de la news à supprimer (0 pour annuler) :");
 		s = new Scanner(System.in);
 		if(s.hasNextInt()) {
-			if(s.nextInt() != 0)
-				bdn.supprimer(s.nextInt());
+			news = s.nextInt();
+			if(news != 0)
+				bdn.supprimer(news);
 		}
 		else System.out.println("Cette news n'existe pas");
 	}
