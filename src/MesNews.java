@@ -1,23 +1,23 @@
 import java.util.*;
 
 public class MesNews {
-	
+
 	private static BaseDeNews bdn = new BaseDeNews();
-	
+
 	public static void main(String[] args)
 	{
 		/*
 		System.out.println("Premier jour");
-		
+
 		System.out.println("Entrez un nombre :");
 		Scanner s = new Scanner(System.in);
 		int nombre = s.nextInt();
 		System.out.println("Vous avez entré : " + nombre);
-		*/
-		
+		 */
+		bdn.initialise();
 		int choix = 0;
 		Scanner s;
-		
+
 		// Gestion du choix
 		do {
 			System.out.println("---- Votre choix ----\n"
@@ -35,7 +35,7 @@ public class MesNews {
 				choix = s.nextInt();
 			else
 				choix = 0;
-				
+
 			switch(choix)
 			{
 			case 1:
@@ -101,24 +101,84 @@ public class MesNews {
 	// Insère une nouvelle actualité dans la base
 	public static void inserer() {
 		Scanner s;
+		int x = 0;
 
-		System.out.println("Entrez un titre");
+		System.out.println("Entrez le numéro du type d'actualité a inserer :\n"
+				+ "1 - Article de presse\n"
+				+ "2 - Image");
 		s = new Scanner(System.in);
-		String titre = s.nextLine();
+		if(s.hasNextInt())
+			x = s.nextInt();
+		else
+			System.out.println("Ce type d'actualité n'existe pas");
 
-		System.out.println("Entrez un auteur");
-		s = new Scanner(System.in);
-		String auteur = s.nextLine();
+		if(x == 1 || x == 2) {
+			News n;
+			
+			System.out.println("Entrez un titre");
+			s = new Scanner(System.in);
+			String titre = s.nextLine();
 
-		System.out.println("Entrez un source");
-		s = new Scanner(System.in);
-		String source = s.nextLine();
-		
-		News n = new News(titre, auteur, source);
-		
-		bdn.ajoute(n);
-		
-		System.out.println(n.toString());
+			System.out.println("Entrez un auteur");
+			s = new Scanner(System.in);
+			String auteur = s.nextLine();
+
+			System.out.println("Entrez un source");
+			s = new Scanner(System.in);
+			String source = s.nextLine();
+			
+			if(x == 2) {
+				System.out.println("Entrez le chemin de l'image");
+				s = new Scanner(System.in);
+				String chemin = s.nextLine();
+				
+				System.out.println("Entrez l'extension de l'image (png,jpg,...)");
+				s = new Scanner(System.in);
+				String type = s.nextLine();
+				
+				System.out.println("Entrez la resolution X de l'image");
+				s = new Scanner(System.in);
+				int resolutionX = 0;
+				if(s.hasNextInt())
+					resolutionX = s.nextInt();
+				
+				System.out.println("Entrez la resolution Y de l'image");
+				s = new Scanner(System.in);
+				int resolutionY = 0;
+				if(s.hasNextInt())
+					resolutionY = s.nextInt();
+				
+				System.out.println("L'image est elle en couleur ? (o/n)");
+				s = new Scanner(System.in);
+				boolean couleur = false;
+				String choix = s.nextLine();
+				if(choix.equals("o"))
+					couleur = true;
+				
+				n = new Image(titre, auteur, source, chemin, type, resolutionX, resolutionY, couleur);
+			}
+			else {
+				System.out.println("Entrez le résumé de l'article :");
+				s = new Scanner(System.in);
+				String texte = s.nextLine();
+				
+				System.out.println("Entrez l'url de l'article complet :");
+				s = new Scanner(System.in);
+				String txtLonger = s.nextLine();
+				
+				System.out.println("Cette article possede-t-il une version papier ? (o/n)");
+				boolean elecOnly = true;
+				String choix = s.next();
+				if(choix.equals("o"))
+					elecOnly = false;
+				
+				n = new Article(titre, auteur, source, texte, txtLonger, elecOnly);
+			}
+
+			bdn.ajoute(n);
+
+			System.out.println(n.toString());
+		}
 	}
 
 	// Sauvegarde la base courante

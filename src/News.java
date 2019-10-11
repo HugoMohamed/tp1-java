@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class News implements Comparable<News>{
+public abstract class News implements Comparable<News>{
 
 	private String titre;
 	private LocalDate date;
